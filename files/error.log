@@ -1,0 +1,16 @@
+Unsuccessful open on filename containing newline at ./tac.pl line 7, <> line 10.
+error while opening at ./tac.pl line 8, <> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 11, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 11, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 10.
