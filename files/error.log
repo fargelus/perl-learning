@@ -14,3 +14,13 @@ Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
 Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
 Use of uninitialized value $line in chomp at ./tac.pl line 23, <FILE> line 10.
 Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 10.
+error while opening at ./tac.pl line 13.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 20.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 20.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 30.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 10.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 20.
+Use of uninitialized value $line in chomp at ./tac.pl line 17, <FILE> line 30.

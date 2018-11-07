@@ -22,7 +22,7 @@ sub get_file_content {
 
 change_stderr();
 
-my @files = @ARGV;
+my @files = reverse @ARGV;
 foreach my $file (@files) {
   my @content = get_file_content($file);
   my @reversed = reverse @content;
