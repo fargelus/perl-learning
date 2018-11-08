@@ -1,8 +1,10 @@
 #!/usr/bin/perl -w
 use strict;
+use POSIX;
 
 sub print_ruler {
-  for(my $i = 0; $i < 3; $i++) {
+  my $row_count = ceil($_[0] / 10);
+  for(my $i = 0; $i < $row_count; $i++) {
     my @seq = 1..9;
     push @seq, 0;
     print @seq;
@@ -16,8 +18,9 @@ sub pretty_print {
 }
 
 my @values = <STDIN>;
-print_ruler();
+my $line_len = shift @values;
+print_ruler($line_len);
 print "\n";
 for (@values) {
-  pretty_print($_, 20);
+  pretty_print($_, $line_len);
 }
