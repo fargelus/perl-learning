@@ -10,14 +10,12 @@ sub print_env_table {
   }
 
   select ENV_TABLE;
-
+  
   $ENV{"MY"} = "env.pl";
-
   foreach my $key (sort keys %ENV) {
     printf "$keys_formatter", $key;
     print "|";
-    print "$ENV{$key}";
-    print "\n";
+    print "$ENV{$key}\n";
   }
 
   close ENV_TABLE;
