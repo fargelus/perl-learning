@@ -4,13 +4,13 @@ use strict;
 sub print_env_table {
   my $keys_formatter = get_key_formatter();
 
-  my $filename = "files/env_table";
+  my $filename = "../assets/env_table";
   unless (open ENV_TABLE, ">$filename") {
     die "Error: can't open file $filename";
   }
 
   select ENV_TABLE;
-  
+
   $ENV{"MY"} = "env.pl";
   foreach my $key (sort keys %ENV) {
     printf "$keys_formatter", $key;

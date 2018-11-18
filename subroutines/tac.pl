@@ -2,7 +2,7 @@
 use strict;
 
 sub change_stderr {
-  unless (open STDERR, '>>files/error.log') {
+  unless (open STDERR, '>>assets/error.log') {
     die "Could not opened error log file\n";
   }
 }
