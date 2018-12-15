@@ -6,7 +6,7 @@ use feature 'state';
 sub greet {
   my $arg = $_[0];
   state $name;
-  
+
   if (defined $name) {
     print "Hi $arg. $name is also here\n";
   } else {
@@ -17,3 +17,4 @@ sub greet {
 
 greet('Fred');
 greet('Barney');
+greet('Wilma');
