@@ -32,19 +32,3 @@ post '/greetings' => sub {
 };
 
 app->start;
-
-__DATA__
-
-@@ form.html.ep
-% title 'Form';
-<form method="post" action="/greetings">
-  <input type="text" name="username" placeholder="Введите имя" required pattern="[А-Яа-яЁё]+">
-  <button>Отправить</button>
-</form>
-
-@@ greetings.html.ep
-% title 'Greetings';
-<form action="/form">
-  <p>Привет, <%=$username%></p>
-  <button name="logout" value="1">Выход</button>
-</form>
