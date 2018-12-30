@@ -1,6 +1,6 @@
 % layout 'head', title => 'Registration';
 <form method="post" action="/reg">
-  <input type="text" name="username" placeholder="Имя" required pattern="[А-Яа-яЁё]+">
+  <input type="text" name="username" placeholder="Имя" required pattern="[A-Za-z]+">
   <input type="password" name="password" placeholder="Пароль">
   <button>Создать аккаунт</button>
 </form>
