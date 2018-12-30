@@ -1,0 +1,6 @@
+% layout 'head', title => 'Login';
+<form method="post" action="/login">
+  <input type="text" name="username" placeholder="Имя" required pattern="[А-Яа-яЁё]+">
+  <input type="password" name="password" required placeholder="Пароль">
+  <button>Войти</button>
+</form>

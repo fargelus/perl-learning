@@ -1,5 +1,0 @@
-% layout 'head', title => 'Form';
-<form method="post" action="/greetings">
-  <input type="text" name="username" placeholder="Введите имя" required pattern="[А-Яа-яЁё]+">
-  <button>Отправить</button>
-</form>
