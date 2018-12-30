@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use Mojolicious::Lite;
 
 get '/' => sub {
@@ -8,12 +7,27 @@ get '/' => sub {
 
 get '/form' => sub {
   my $self = shift;
-  $self->render('form');
+  my $is_logout = $self->param('logout');
+  my $username;
+
+  if ($is_logout) {
+    delete $self->session->{'username'};
+  } else {
+    $username = $self->session('username');
+  }
+
+  if (defined $username) {
+    $self->render('greetings', username => $username);
+  } else {
+    $self->render('form');
+  }
 };
 
-post '/form' => sub {
+post '/greetings' => sub {
   my $self = shift;
   my $username = $self->param('username');
+
+  $self->session('username' => $username);
   $self->render('greetings', username => $username);
 };
 
@@ -23,11 +37,14 @@ __DATA__
 
 @@ form.html.ep
 % title 'Form';
-<form method="post" action="/form">
+<form method="post" action="/greetings">
   <input type="text" name="username" placeholder="Введите имя" required pattern="[А-Яа-яЁё]+">
   <button>Отправить</button>
 </form>
 
 @@ greetings.html.ep
 % title 'Greetings';
-<p>Привет, <%=$username%></p>
+<form action="/form">
+  <p>Привет, <%=$username%></p>
+  <button name="logout" value="1">Выход</button>
+</form>
