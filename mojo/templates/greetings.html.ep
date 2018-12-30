@@ -1,4 +1,4 @@
-% title 'Greetings';
+% layout 'head', title => 'Greetings';
 <form action="/form">
   <p>Привет, <%=$username%></p>
   <button name="logout" value="1">Выход</button>
