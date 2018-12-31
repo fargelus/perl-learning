@@ -1,5 +1,13 @@
 % layout 'head', title => 'Greetings';
 <form action="/logout">
-  <p>Привет, <%=$username%></p>
-  <button>Выход</button>
+  <p>Привет, <%=$username%>.</p>
+  <div>
+    <label for="avatar">Загрузить аватарку:&nbsp;&nbsp;</label>
+    <input type="file" id="avatar" name="avatar" accept=".png">
+  </div>
+  <p>
+    <button id="upd-btn" disabled>Обновить</button>
+    <button>Выход</button>
+  </p>
+  <p id="avatar-upd-res"></p>
 </form>

@@ -1,5 +1,6 @@
 use Mojolicious::Lite;
 use DBI;
+use Mojo::Message::Response;
 
 my $dbh = DBI->connect('dbi:SQLite:database.db', '', '') or die 'Could not connect';
 
@@ -16,7 +17,7 @@ helper select_all => sub {
   my $db = eval {$self->db->prepare("SELECT * FROM users")} || return undef;
 
   $db->execute();
-  $db->fetchall_arrayref;
+  $db->fetchall_arrayref();
 };
 
 helper select => sub {
@@ -26,7 +27,7 @@ helper select => sub {
   my $db = eval {$self->db->prepare($query)} || return undef;
 
   $db->execute();
-  $db->fetchrow_arrayref;
+  $db->fetchrow_arrayref();
 };
 
 helper insert => sub {
@@ -83,13 +84,21 @@ post '/reg' => sub {
   my $username = $self->param('username');
   my $pwd = $self->param('password');
 
-  $self->session('username' => $username);
   my $insert = $self->insert($username, $pwd);
   if ($insert) {
+    $self->session('username' => $username);
     $self->render('greetings', username => $username);
   } else {
     $self->render(text => "Не удалось зарегистрировать пользователя $username");
   }
+};
+
+post '/update' => sub {
+  my $self = shift;
+  my $res = Mojo::Message::Response->new();
+  # Отдать ответ
+  $res->code(200);
+  say $res->to_string();
 };
 
 get '/logout' => sub {
