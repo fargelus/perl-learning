@@ -11,7 +11,7 @@ helper db => sub { $dbh };
 helper create_table => sub {
   my $self = shift;
   warn "Creating table 'users'\n";
-  $self->db->do('CREATE TABLE users (name varchar(255), pwd varchar(255))');
+  $self->db->do('CREATE TABLE users (id INTEGER PRIMARY KEY, name varchar(255), pwd varchar(255))');
 };
 
 helper select_all => sub {
@@ -35,7 +35,7 @@ helper select => sub {
 helper insert => sub {
   my $self = shift;
   my ($name, $pwd) = @_;
-  my $query = 'INSERT INTO users VALUES(?, ?)';
+  my $query = 'INSERT INTO USERS (name, pwd) VALUES(?, ?)';
   my $db = eval {$self->db->prepare($query)} || return undef;
 
   $db->execute($name, $pwd);
