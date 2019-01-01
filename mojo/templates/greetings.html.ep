@@ -1,4 +1,7 @@
 % layout 'head', title => 'Greetings';
+% content_for 'head' => begin
+  <script defer src="/js/upload_avatar.js"></script>
+% end
 <form action="/logout">
   <p>Привет, <%=$username%>.</p>
   <div>

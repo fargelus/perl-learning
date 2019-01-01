@@ -1,6 +1,8 @@
 use Mojolicious::Lite;
 use DBI;
 use Mojo::Message::Response;
+use Data::Dumper;
+use Cwd;
 
 my $dbh = DBI->connect('dbi:SQLite:database.db', '', '') or die 'Could not connect';
 
@@ -95,10 +97,16 @@ post '/reg' => sub {
 
 post '/update' => sub {
   my $self = shift;
-  my $res = Mojo::Message::Response->new();
-  # Отдать ответ
-  $res->code(200);
-  say $res->to_string();
+
+  my $avatarFile = $self->req->upload('avatar');
+  if ($avatarFile) {
+    my $filename = $avatarFile->filename;
+    my $dir = getcwd();
+    my $path = $dir."/public/store/$filename";
+    $avatarFile->move_to($path);
+  }
+  # my $res = Mojo::Message::Response->new();
+  # $self->res->headers->header('X-Bender' => 'Bite my shiny metal ass!');
 };
 
 get '/logout' => sub {

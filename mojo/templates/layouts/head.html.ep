@@ -1,47 +1,8 @@
 <html>
 <head>
   <title><%=title%></title>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-  <script>
-    $(() => {
-      const $avatar = $('#avatar');
-      const $updBtn = $('#upd-btn');
-      const isDisabled = $updBtn.prop('disabled');
-
-      $avatar.change(() => {
-        if (isDisabled) {
-          $updBtn.prop('disabled', false);
-        }
-      });
-
-      $updBtn.click((ev) => {
-        ev.preventDefault();
-
-        const fd = new FormData();
-        fd.append('img', $avatar.prop('files')[0]);
-
-        $.ajax({
-          type: 'POST',
-          url: '/update',
-          data: fd,
-          contentType: false,
-          processData: false,
-          success: (data) => {
-            $('#avatar-upd-res')
-              .empty()
-              .html('<p>Аватарка обновлена</p>');
-          },
-          fail: () => {
-            $('#avatar-upd-res')
-              .empty()
-              .html('<p>Не удалось обновить аватарку</p>');
-          }
-        });
-      });
-    });
-  </script>
+  <script defer src="/js/vendors/jquery.min.js"></script>
+  %= content_for 'head'
 </head>
 <body>
   <%=content%>
