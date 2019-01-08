@@ -1,12 +1,16 @@
 package App::Controller::Main;
 use Mojo::Base 'Mojolicious::Controller';
+use Data::Dumper;
+use App::Model::Users;
 
 sub index {
   my $self = shift;
 
-  # TODO Сессия
-  my $user_id = $self->session('id');
-  return $self->render unless ($user_id);
+  if ( $self->session('username') ) {
+    $self->redirect_to('greetings');
+  }
+
+  $self->render;
 }
 
 sub login {
@@ -16,20 +20,22 @@ sub login {
     $self->param('password')
   );
 
-  $self->flash(username => '123');
-  # TODO Модель
+  my $fetch_rec = App::Model::Users->select($username, $pwd);
+  return $self->render(text => 'Ошибка. Пользователя не существует.') unless ($fetch_rec);
+
+  $self->session(username => $username);
   $self->redirect_to('greetings');
 }
 
 sub greetings {
   my $self = shift;
-  my $username = $self->flash('username');
+  my $username = $self->session('username');
   $self->render(username => $username);
 }
 
 sub logout {
   my $self = shift;
-  # TODO сессия
+  delete $self->session->{'username'};
   $self->redirect_to('/');
 }
 
@@ -40,9 +46,13 @@ sub reg {
     $self->param('password')
   );
 
-  # TODO Сессия и Модель
-  $self->flash('username' => $username);
-  $self->redirect_to('greetings');
+  my $is_user_exist = App::Model::Users->select($username, $pwd);
+  return $self->render(text => 'Ошибка. Пользователь уже существует.') if ($is_user_exist);
+
+  if (App::Model::Users->insert($username, $pwd)) {
+    $self->session(username => $username);
+    $self->redirect_to('greetings');
+  }
 }
 
 1;
