@@ -6,7 +6,7 @@ use App::Model::Users;
 sub index {
   my $self = shift;
 
-  if ( $self->session('username') ) {
+  if ( $self->session('id') ) {
     $self->redirect_to('greetings');
   }
 
@@ -20,22 +20,28 @@ sub login {
     $self->param('password')
   );
 
-  my $fetch_rec = App::Model::Users->select($username, $pwd);
+  my $fetch_rec = App::Model::Users->exist($username, $pwd);
   return $self->render(text => 'Ошибка. Пользователя не существует.') unless ($fetch_rec);
 
-  $self->session(username => $username);
+  $self->session(id => @$fetch_rec[0]);
   $self->redirect_to('greetings');
 }
 
 sub greetings {
   my $self = shift;
-  my $username = $self->session('username');
-  $self->render(username => $username);
+  my $id = $self->session('id');
+  state $fetch_rec = App::Model::Users->select($id);
+
+  unless (@$fetch_rec[0] eq $id) {
+    $fetch_rec = App::Model::Users->select($id);
+  }
+
+  $self->render(username => @$fetch_rec[1]);
 }
 
 sub logout {
   my $self = shift;
-  delete $self->session->{'username'};
+  delete $self->session->{'id'};
   $self->redirect_to('/');
 }
 
@@ -46,11 +52,12 @@ sub reg {
     $self->param('password')
   );
 
-  my $is_user_exist = App::Model::Users->select($username, $pwd);
+  my $is_user_exist = App::Model::Users->exist($username, $pwd);
   return $self->render(text => 'Ошибка. Пользователь уже существует.') if ($is_user_exist);
 
-  if (App::Model::Users->insert($username, $pwd)) {
-    $self->session(username => $username);
+  my $inserted_id = App::Model::Users->insert($username, $pwd);
+  if ($inserted_id) {
+    $self->session(id => $inserted_id);
     $self->redirect_to('greetings');
   }
 }

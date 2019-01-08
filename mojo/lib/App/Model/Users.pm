@@ -8,7 +8,7 @@ my $dbh = DBI->connect('dbi:SQLite:database.db', '', '') or croak 'Could not con
 
 sub create_table {
   carp 'Creating table users...';
-  my $query = 'CREATE TABLE users (id INTEGER PRIMARY KEY, name varchar(255), pwd varchar(255))';
+  my $query = 'CREATE TABLE users (id INTEGER PRIMARY KEY, name varchar(255), pwd varchar(255), avatar varchar(255))';
   $dbh->do($query);
 }
 
@@ -23,11 +23,24 @@ sub select_all {
 
 sub select {
   my $self = shift;
-  my ($looking_name, $looking_pwd) = @_;
-  carp "Select data by name: $looking_name AND pwd: $looking_pwd";
+  my $id = $_[0];
+  carp "Select data by id: $id...";
 
-  my $query = "SELECT name, pwd FROM users WHERE name='$looking_name' AND pwd='$looking_pwd'";
+  my $query = "SELECT * FROM users WHERE id='$id'";
   my $db = eval {$dbh->prepare($query)} || return undef;
+  
+  $db->execute();
+  $db->fetchrow_arrayref();
+}
+
+sub exist {
+  my $self = shift;
+  my ($looking_name, $looking_pwd) = @_;
+  carp "Checking for col: $looking_name AND pwd: $looking_pwd...";
+
+  my $query = "SELECT * FROM users WHERE name='$looking_name' AND pwd='$looking_pwd'";
+  my $db = eval {$dbh->prepare($query)} || return undef;
+
   $db->execute();
   $db->fetchrow_arrayref();
 }
@@ -40,8 +53,7 @@ sub insert {
   my $query = 'INSERT INTO USERS (name, pwd) VALUES(?, ?)';
   my $db = eval {$dbh->prepare($query)} || return undef;
 
-  $db->execute($name, $pwd);
-  1;
+  $db->execute($name, $pwd) ? $dbh->last_insert_id : undef;
 }
 
 1;
