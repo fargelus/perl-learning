@@ -3,6 +3,7 @@ package App::Model::Users;
 use Mojo::Base -base;
 use DBI;
 use Carp qw(carp croak);
+use Data::Dumper;
 
 my $dbh = DBI->connect('dbi:SQLite:database.db', '', '') or croak 'Could not connect';
 
@@ -28,7 +29,7 @@ sub select {
 
   my $query = "SELECT * FROM users WHERE id='$id'";
   my $db = eval {$dbh->prepare($query)} || return undef;
-  
+
   $db->execute();
   $db->fetchrow_arrayref();
 }
@@ -54,6 +55,23 @@ sub insert {
   my $db = eval {$dbh->prepare($query)} || return undef;
 
   $db->execute($name, $pwd) ? $dbh->last_insert_id : undef;
+}
+
+sub update {
+  my $self = shift;
+  my ($id, $fields) = @_;
+  carp "Update record id = $id...";
+
+  my $set_str = '';
+  for (keys %{$fields}) {
+    $set_str .= ',' unless ($set_str eq '');
+    my $val = $fields->{$_};
+    $set_str .= "$_='$val'";
+  }
+
+  my $query = "UPDATE users SET $set_str WHERE id=$id";
+  my $db = eval {$dbh->prepare($query)} || return undef;
+  $db->execute();
 }
 
 1;

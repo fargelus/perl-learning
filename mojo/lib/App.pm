@@ -17,6 +17,7 @@ sub startup {
   $r->get('/logout')->to('main#logout');
   $r->get('/reg')->name('registration');
   $r->post('/reg')->to('main#reg');
+  $r->post('/update')->to('main#update');
 }
 
 1;
