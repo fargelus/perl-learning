@@ -21,15 +21,16 @@ $(() => {
       data: fd,
       contentType: false,
       processData: false,
-      success: (data) => {
-        $('#avatar-upd-res')
-          .empty()
-          .html('<p>Аватарка обновлена</p>');
-      },
-      fail: () => {
-        $('#avatar-upd-res')
-          .empty()
-          .html('<p>Не удалось обновить аватарку</p>');
+      statusCode: {
+        500: () => {
+          $('#avatar-upd-res')
+            .empty()
+            .html('<p>Не удалось обновить аватарку</p>');
+        },
+
+        200: () => {
+          location.reload();
+        }
       }
     });
   });

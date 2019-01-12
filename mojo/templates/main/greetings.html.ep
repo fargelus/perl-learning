@@ -3,7 +3,10 @@
   <script defer src="/js/upload_avatar.js"></script>
 % end
 <form action="/logout">
-  <p>Привет, <%=$username%>.</p>
+  <p>
+    Привет, <%=$username%>.
+    <img src="<%=$avatar_src%>" alt="avatar">
+  </p>
   <div>
     <label for="avatar">Загрузить аватарку:&nbsp;&nbsp;</label>
     <input type="file" id="avatar" name="avatar" accept=".png">

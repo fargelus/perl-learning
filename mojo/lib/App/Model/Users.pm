@@ -3,7 +3,6 @@ package App::Model::Users;
 use Mojo::Base -base;
 use DBI;
 use Carp qw(carp croak);
-use Data::Dumper;
 
 my $dbh = DBI->connect('dbi:SQLite:database.db', '', '') or croak 'Could not connect';
 
@@ -51,7 +50,7 @@ sub insert {
   my ($name, $pwd) = @_;
   carp "Insert data $name, $pwd to DB...";
 
-  my $query = 'INSERT INTO USERS (name, pwd) VALUES(?, ?)';
+  my $query = 'INSERT INTO users (name, pwd) VALUES(?, ?)';
   my $db = eval {$dbh->prepare($query)} || return undef;
 
   $db->execute($name, $pwd) ? $dbh->last_insert_id : undef;
