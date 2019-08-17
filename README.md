@@ -6,3 +6,8 @@ Educational Perl scripts
 ```bash
 perl app.pl daemon
 ```
+
+*Live dev server*
+```bash
+morbo app.pl
+```
