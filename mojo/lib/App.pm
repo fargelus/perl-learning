@@ -18,6 +18,7 @@ sub startup {
   $r->get('/reg')->name('registration');
   $r->post('/reg')->to('main#reg');
   $r->post('/update')->to('main#update');
+  $r->post('/translate')->to('main#translate');
 }
 
 1;

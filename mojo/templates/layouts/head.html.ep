@@ -6,5 +6,13 @@
 </head>
 <body>
   <%=content%>
+  <form action="/translate" method="post">
+    <label for="lang-select">Выберите язык</label>
+    <select id="lang-select" name="lang">
+      <option value="ru">Русский</option>
+      <option value="en">Английский</option>
+    </select>
+    <button type="submit" name="button">Перевести</button>
+  </form>
 </body>
 </html>

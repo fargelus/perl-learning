@@ -1,8 +1,12 @@
 package App::Controller::Main;
+
 use Mojo::Base 'Mojolicious::Controller';
 use Data::Dumper;
 use App::Model::Users;
 use Cwd;
+use Carp qw(carp croak);
+
+use App::Locale::Ru;
 
 sub index {
   my $self = shift;
@@ -10,6 +14,10 @@ sub index {
   if ( $self->session('id') ) {
     $self->redirect_to('greetings');
   }
+
+  $self->stash(
+    DICT => \%LEXICON,
+  );
 
   $self->render;
 }
@@ -103,5 +111,13 @@ sub update {
     $self->render(%response);
   }
 }
+
+sub translate {
+  my $self = shift;
+
+  my $lang = $self->param('lang');
+  $self->render(text => $lang);
+}
+
 
 1;
