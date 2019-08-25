@@ -10,7 +10,7 @@ sub getLogin {
   my $self = shift;
 
   stashLexer($self);
-  $self->render(template => 'login');
+  $self->render(template => 'user/login');
 }
 
 sub postLogin {
@@ -21,7 +21,7 @@ sub postLogin {
   );
 
   my $fetch_rec = App::Model::Users->exist($username, $pwd);
-  return $self->render(text => 'Ошибка. Пользователя не существует.') unless ($fetch_rec);
+  return $self->redirect_to('/user_empty') unless ($fetch_rec);
 
   $self->session(id => @$fetch_rec[0]);
   $self->redirect_to('greetings');
@@ -37,7 +37,7 @@ sub getReg {
   my $self = shift;
 
   stashLexer($self);
-  $self->render(template => 'registration');
+  $self->render(template => 'user/registration');
 }
 
 sub register {

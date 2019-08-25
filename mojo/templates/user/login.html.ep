@@ -1,0 +1,6 @@
+% layout 'head', title => 'Login';
+<form method="post" action="/login">
+  <input type="text" name="username" placeholder="<%=${$DICT}{'name'}%>" required pattern="[a-zA-Z]+">
+  <input type="password" name="password" required placeholder="<%=${$DICT}{'pwd'}%>">
+  <button><%=${$DICT}{'enter'}%></button>
+</form>

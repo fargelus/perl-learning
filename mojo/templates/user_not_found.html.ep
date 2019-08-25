@@ -1,0 +1,2 @@
+% layout 'head', title => 'Error';
+<p><%=${$DICT}{'user_empty'}%></p>

@@ -33,11 +33,19 @@ sub greetings {
     $fetch_rec = App::Model::Users->select($id);
   }
 
+  stashLexer($self);
   # avatar_src: undef или путь к аве на сервере
   $self->render(
     username => @$fetch_rec[1],
     avatar_src => @$fetch_rec[3],
   );
+}
+
+sub userEmpty {
+  my $self = shift;
+
+  stashLexer($self);
+  $self->render(template => 'user_not_found');
 }
 
 sub translate {

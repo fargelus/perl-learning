@@ -1,4 +1,5 @@
 package App;
+
 use Mojo::Base 'Mojolicious';
 use App::Model::Users;
 
@@ -13,6 +14,7 @@ sub startup {
   $r->any('/')->to('main#index');
   $r->get('/greetings')->to('main#greetings');
   $r->post('/translate')->to('main#translate');
+  $r->any('/user_empty')->to('main#userEmpty');
 
   $r->get('/login')->to('user#getLogin');
   $r->post('/login')->to('user#postLogin');

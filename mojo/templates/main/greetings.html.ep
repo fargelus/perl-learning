@@ -4,16 +4,20 @@
 % end
 <form action="/logout">
   <p>
-    Привет, <%=$username%>.
+    <%=${$DICT}{'hi'}%>, <%=$username%>.
     <img src="<%=$avatar_src%>" alt="avatar">
   </p>
   <div>
-    <label for="avatar">Загрузить аватарку:&nbsp;&nbsp;</label>
-    <input type="file" id="avatar" name="avatar" accept=".png">
+    <button type="button">
+      <label for="avatar">
+          <%=${$DICT}{'upload_ava'}%>
+      </label>
+    </button>
+    <input type="file" hidden id="avatar" name="avatar" accept=".png">
   </div>
   <p>
-    <button id="upd-btn" disabled>Обновить</button>
-    <button>Выход</button>
+    <button id="upd-btn" disabled><%=${$DICT}{'update'}%></button>
+    <button><%=${$DICT}{'exit'}%></button>
   </p>
   <p id="avatar-upd-res"></p>
 </form>

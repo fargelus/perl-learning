@@ -15,6 +15,14 @@ our %LEXICON = (
   ru => 'Russian',
   en => 'English',
   tr => 'Translate',
+  name => 'Name',
+  pwd => 'Password',
+  create_acc => 'Create account',
+  user_empty => 'Error. User not exist.',
+  hi => 'Hello',
+  upload_ava => 'Upload avatar',
+  update => 'Update',
+  exit => 'Exit',
 );
 
 
