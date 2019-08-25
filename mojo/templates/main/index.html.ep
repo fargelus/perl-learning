@@ -1,5 +1,5 @@
 % layout 'head', title => 'index';
 <div>
   <a href="/login"><%=${$DICT}{'enter'}%></a>
-  <a href="/reg">Регистрация</a>
+  <a href="/reg"><%=${$DICT}{'reg'}%></a>
 </div>

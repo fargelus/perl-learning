@@ -3,10 +3,12 @@ package App::Controller::Main;
 use Mojo::Base 'Mojolicious::Controller';
 use Data::Dumper;
 use App::Model::Users;
-use Cwd;
 use Carp qw(carp croak);
+use App::Helpers;
+use Package::Alias
+    RU_LEXER => 'App::Locale::Ru',
+    EN_LEXER => 'App::Locale::En';
 
-use App::Locale::Ru;
 
 sub index {
   my $self = shift;
@@ -15,25 +17,8 @@ sub index {
     $self->redirect_to('greetings');
   }
 
-  $self->stash(
-    DICT => \%LEXICON,
-  );
-
+  stashLexer($self);
   $self->render;
-}
-
-sub login {
-  my $self = shift;
-  my ($username, $pwd) = (
-    $self->param('username'),
-    $self->param('password')
-  );
-
-  my $fetch_rec = App::Model::Users->exist($username, $pwd);
-  return $self->render(text => 'Ошибка. Пользователя не существует.') unless ($fetch_rec);
-
-  $self->session(id => @$fetch_rec[0]);
-  $self->redirect_to('greetings');
 }
 
 sub greetings {
@@ -55,68 +40,21 @@ sub greetings {
   );
 }
 
-sub logout {
-  my $self = shift;
-  delete $self->session->{'id'};
-  $self->redirect_to('/');
-}
-
-sub reg {
-  my $self = shift;
-  my ($username, $pwd) = (
-    $self->param('username'),
-    $self->param('password')
-  );
-
-  my $is_user_exist = App::Model::Users->exist($username, $pwd);
-  return $self->render(text => 'Ошибка. Пользователь уже существует.') if ($is_user_exist);
-
-  my $inserted_id = App::Model::Users->insert($username, $pwd, '');
-  if ($inserted_id) {
-    $self->session(id => $inserted_id);
-    $self->redirect_to('greetings');
-  }
-}
-
-sub update {
-  my $self = shift;
-
-  my $avatarFile = $self->req->upload('avatar');
-  if ($avatarFile) {
-    my $filename = $avatarFile->filename;
-    my $dir = getcwd();
-    my $path = $dir."/public/store/$filename";
-    $avatarFile->move_to($path);
-
-    my $cur_id = $self->session('id');
-    my $saving_path = "/store/$filename";
-    my $is_updated = App::Model::Users->update($cur_id, { 'avatar' => $saving_path });
-    my %response;
-    if ($is_updated) {
-      $self->flash('update' => 1);
-
-      %response = (
-        text => 'Avatar was sucessfully updated',
-        status => 200,
-        format => 'txt',
-      );
-    } else {
-      %response = (
-        text => 'Error while updating avatar',
-        status => 500,
-        format => 'txt',
-      )
-    }
-
-    $self->render(%response);
-  }
-}
-
 sub translate {
   my $self = shift;
 
   my $lang = $self->param('lang');
-  $self->render(text => $lang);
+  my %LEXER = getLexer($lang);
+  $self->session('lexer' => \%LEXER);
+
+  my $referrer = $self->req->content->headers->referrer;
+  $self->redirect_to($referrer);
+}
+
+sub getLexer {
+  my $lang = shift;
+
+  $lang eq 'en' ? %EN_LEXER::LEXICON : %RU_LEXER::LEXICON;
 }
 
 

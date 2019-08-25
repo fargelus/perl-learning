@@ -11,14 +11,14 @@ sub startup {
   my $r = $self->routes();
   $r->any('/')->to('main#index')->name('index');
   $r->get('/greetings')->to('main#greetings');
-
-  $r->get('/login')->name('login');
-  $r->post('/login')->to('main#login');
-  $r->get('/logout')->to('main#logout');
-  $r->get('/reg')->name('registration');
-  $r->post('/reg')->to('main#reg');
-  $r->post('/update')->to('main#update');
   $r->post('/translate')->to('main#translate');
+
+  $r->get('/login')->to('user#getLogin');
+  $r->post('/login')->to('user#postLogin');
+  $r->get('/logout')->to('user#logout');
+  $r->get('/reg')->to('user#getReg');
+  $r->post('/reg')->to('user#register');
+  $r->post('/update')->to('user#update');
 }
 
 1;

@@ -7,12 +7,12 @@
 <body>
   <%=content%>
   <form action="/translate" method="post">
-    <label for="lang-select">Выберите язык</label>
+    <label for="lang-select"><%=${$DICT}{'lang_chooser'}%></label>
     <select id="lang-select" name="lang">
-      <option value="ru">Русский</option>
-      <option value="en">Английский</option>
+      <option value="ru"><%=${$DICT}{'ru'}%></option>
+      <option value="en"><%=${$DICT}{'en'}%></option>
     </select>
-    <button type="submit" name="button">Перевести</button>
+    <button type="submit" name="button"><%=${$DICT}{'tr'}%></button>
   </form>
 </body>
 </html>
