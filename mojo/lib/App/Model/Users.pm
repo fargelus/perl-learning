@@ -4,6 +4,7 @@ use Mojo::Base -base;
 use DBI;
 use Carp qw(carp croak);
 
+
 my $dbh = DBI->connect('dbi:SQLite:database.db', '', '') or croak 'Could not connect';
 
 sub create_table {
@@ -72,5 +73,6 @@ sub update {
   my $db = eval {$dbh->prepare($query)} || return undef;
   $db->execute();
 }
+
 
 1;

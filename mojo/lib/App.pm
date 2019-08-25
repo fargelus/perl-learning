@@ -2,6 +2,7 @@ package App;
 use Mojo::Base 'Mojolicious';
 use App::Model::Users;
 
+
 sub startup {
   my $self = shift;
   $self->secrets(['Simple app']);
@@ -9,7 +10,7 @@ sub startup {
   App::Model::Users->select_all() || App::Model::Users->create_table();
 
   my $r = $self->routes();
-  $r->any('/')->to('main#index')->name('index');
+  $r->any('/')->to('main#index');
   $r->get('/greetings')->to('main#greetings');
   $r->post('/translate')->to('main#translate');
 
@@ -20,5 +21,6 @@ sub startup {
   $r->post('/reg')->to('user#register');
   $r->post('/update')->to('user#update');
 }
+
 
 1;
