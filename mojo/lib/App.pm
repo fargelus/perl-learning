@@ -10,19 +10,38 @@ sub startup {
 
   App::Model::Users->select_all() || App::Model::Users->create_table();
 
-  my $r = $self->routes();
-  $r->any('/')->to('main#index');
-  $r->get('/greetings')->to('main#greetings');
-  $r->post('/translate')->to('main#translate');
-  $r->any('/user_empty')->to('main#userEmpty');
+  defineRoutes($self);
 
-  $r->get('/login')->to('user#getLogin');
-  $r->post('/login')->to('user#postLogin');
-  $r->get('/logout')->to('user#logout');
-  $r->get('/reg')->to('user#getReg');
-  $r->post('/reg')->to('user#register');
-  $r->post('/update')->to('user#update');
+  $self->helper(relative_path => sub {
+    my $self = shift;
+    my $page = shift;
+    return $self->url_for.'/'.$page if $self->url_for =~ 'en';
+    return $page;
+  });
 }
 
+sub defineRoutes {
+  my $self = shift;
+
+  my $r = $self->routes();
+  my @roots = ('', 'en');
+  # Языковые маршруты
+  foreach my $root (@roots) {
+    my $root = $r->under($root);
+
+    $root->any('/')->to('main#index');
+    $root->get('/login')->to('user#getLogin');
+    $root->get('/greetings')->to('main#greetings');
+    $root->any('/user_empty')->to('main#userEmpty');
+    $root->get('/reg')->to('user#getReg');
+  }
+
+  # Общие маршруты
+  $r->post('/update')->to('user#update');
+  $r->post('/reg')->to('user#register');
+  $r->post('/translate')->to('main#translate');
+  $r->post('/login')->to('user#postLogin');
+  $r->get('/logout')->to('user#logout');
+}
 
 1;
