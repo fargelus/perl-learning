@@ -52,18 +52,9 @@ sub translate {
   my $self = shift;
 
   my $lang = $self->param('lang');
-  my %LEXER = getLexer($lang);
-  $self->session('lexer' => \%LEXER);
-
   my $referrer = $self->req->content->headers->referrer;
-  $self->redirect_to($referrer);
+  my $url = getTranslatedPageURL($lang, $referrer);
+  $self->redirect_to($url);
 }
-
-sub getLexer {
-  my $lang = shift;
-
-  $lang eq 'en' ? %EN_LEXER::LEXICON : %RU_LEXER::LEXICON;
-}
-
 
 1;

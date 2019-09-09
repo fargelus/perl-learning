@@ -19,6 +19,7 @@ our %LEXICON = (
   pwd => 'Password',
   create_acc => 'Create account',
   user_empty => 'Error. User not exist.',
+  user_exist => 'Error. User already exist',
   hi => 'Hello',
   upload_ava => 'Upload avatar',
   update => 'Update',
