@@ -1,9 +1,12 @@
 package App::Controller::User;
 
 use Mojo::Base 'Mojolicious::Controller';
+use Mojo::JSON qw(decode_json encode_json);
 use App::Helpers;
 use App::Model::Users;
 use Cwd;
+use Data::Dumper;
+use Carp qw(carp croak);
 
 
 sub getLogin {
@@ -21,10 +24,24 @@ sub postLogin {
   );
 
   my $fetch_rec = App::Model::Users->exist($username, $pwd);
-  return $self->redirect_to('/user_empty') unless ($fetch_rec);
-
   $self->session(id => @$fetch_rec[0]);
   $self->redirect_to('greetings');
+}
+
+sub isUserExist {
+  my $self = shift;
+
+  my $data = decode_json ($self->req->body);
+  my $user = $data->{user};
+  my $pwd = $data->{password};
+
+  my $fetch_rec = App::Model::Users->exist($user, $pwd);
+  unless ($fetch_rec) {
+    $self->render(json => {status => 'fail'}, status => 200);
+    return;
+  }
+
+  $self->render(json => {status => 'exist'}, status => 200);
 }
 
 sub logout {
