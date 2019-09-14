@@ -1,5 +1,6 @@
 package CoffeeMaker;
 
+
 use strict;
 use warnings;
 use utf8;
@@ -20,5 +21,6 @@ sub make {
   $log->error('непредвиденная проблема');
   $log->info('готово');
 }
+
 
 1;
