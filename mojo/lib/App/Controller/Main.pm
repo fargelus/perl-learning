@@ -42,13 +42,6 @@ sub greetings {
   );
 }
 
-sub userEmpty {
-  my $self = shift;
-
-  stashLexer($self);
-  $self->render(template => 'user_not_found');
-}
-
 sub translate {
   my $self = shift;
 

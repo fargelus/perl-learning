@@ -32,7 +32,6 @@ sub defineRoutes {
     $root->any('/')->to('main#index');
     $root->get('/login')->to('user#getLogin');
     $root->get('/greetings')->to('main#greetings');
-    $root->any('/user_empty')->to('main#userEmpty');
     $root->get('/reg')->to('user#getReg');
   }
 
@@ -42,7 +41,6 @@ sub defineRoutes {
   $r->post('/translate')->to('main#translate');
   $r->post('/login')->to('user#postLogin');
   $r->get('/logout')->to('user#logout');
-  $r->post('/user_exist')->to('user#isUserExist');
 }
 
 1;

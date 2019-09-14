@@ -1,4 +1,4 @@
-% layout 'head', title => 'index';
+% layout 'head', title => ${$DICT}{'home_page'};
 <div>
   <a href="<%= relative_path('login')%>"><%=${$DICT}{'enter'}%></a>
   <a href="<%= relative_path('reg')%>"><%=${$DICT}{'reg'}%></a>

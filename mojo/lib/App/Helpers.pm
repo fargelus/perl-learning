@@ -25,17 +25,17 @@ sub getLexer {
   my $self = shift;
 
   my $url = $self->url_for;
-  return \%App::Locale::En::LEXICON if $url =~ m/\/en\//;
+
+  return \%App::Locale::En::LEXICON if $url =~ m/\/en\/?/;
   return \%App::Locale::Ru::LEXICON;
 }
 
 sub getTranslatedPageURL {
   my ($lang, $originPage) = @_;
 
+  $originPage =~ s{en\/}{};
   if ($lang eq 'en') {
     $originPage =~ s{(?<=\w)\/}{\/en\/};
-  } else {
-    $originPage =~ s{en\/}{};
   }
 
   $originPage;

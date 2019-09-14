@@ -10,6 +10,8 @@ use Exporter qw(import);
 our @EXPORT = qw(%LEXICON);
 
 our %LEXICON = (
+  home_page => 'Главная',
+  greetings_page => 'Приветствую',
   enter => 'Войти',
   reg => 'Регистрация',
   lang_chooser => 'Выберите язык',

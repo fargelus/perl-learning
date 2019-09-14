@@ -1,4 +1,4 @@
-% layout 'user-form', title => 'Login';
+% layout 'user-form', title => ${$DICT}{'enter'};
 <form method="post" action="/login" id="login-form">
   <input type="text" name="username" placeholder="<%=${$DICT}{'name'}%>" required pattern="[a-zA-Z]+">
   <input type="password" name="password" required placeholder="<%=${$DICT}{'pwd'}%>">
