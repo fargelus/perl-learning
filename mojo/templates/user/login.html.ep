@@ -1,13 +1,10 @@
-% layout 'head', title => 'Login';
-% content_for 'head' => begin
-  <script defer src="/js/login.js"></script>
-% end
+% layout 'user-form', title => 'Login';
 <form method="post" action="/login" id="login-form">
   <input type="text" name="username" placeholder="<%=${$DICT}{'name'}%>" required pattern="[a-zA-Z]+">
   <input type="password" name="password" required placeholder="<%=${$DICT}{'pwd'}%>">
   <button><%=${$DICT}{'enter'}%></button>
 </form>
 
-<div id="login-error" style="display: none;">
+<div id="user-error" style="display: none;">
   %= include 'errors/user_not_found';
 </div>

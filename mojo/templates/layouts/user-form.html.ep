@@ -1,0 +1,4 @@
+% layout 'head', title => $title;
+% content_for 'head' => begin
+  <script defer src="/js/user_err_msg.js"></script>
+% end

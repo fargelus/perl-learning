@@ -23,7 +23,7 @@ sub postLogin {
     $self->param('password')
   );
 
-  my $fetch_rec = App::Model::Users->exist($username, $pwd);
+  my $fetch_rec = App::Model::Users->fetch($username, $pwd);
   $self->session(id => @$fetch_rec[0]);
   $self->redirect_to('greetings');
 }
@@ -35,9 +35,9 @@ sub isUserExist {
   my $user = $data->{user};
   my $pwd = $data->{password};
 
-  my $fetch_rec = App::Model::Users->exist($user, $pwd);
+  my $fetch_rec = App::Model::Users->fetch($user, $pwd);
   unless ($fetch_rec) {
-    $self->render(json => {status => 'fail'}, status => 200);
+    $self->render(json => {status => 'empty'}, status => 200);
     return;
   }
 
@@ -64,7 +64,7 @@ sub register {
     $self->param('password')
   );
 
-  my $is_user_exist = App::Model::Users->exist($username, $pwd);
+  my $is_user_exist = App::Model::Users->fetch($username, $pwd);
   return $self->render(text => 'Ошибка. Пользователь уже существует.') if ($is_user_exist);
 
   my $inserted_id = App::Model::Users->insert($username, $pwd, '');

@@ -1,5 +1,6 @@
 package App::Controller::Main;
 
+
 use Mojo::Base 'Mojolicious::Controller';
 use Data::Dumper;
 use App::Model::Users;
@@ -56,5 +57,6 @@ sub translate {
   my $url = getTranslatedPageURL($lang, $referrer);
   $self->redirect_to($url);
 }
+
 
 1;

@@ -1,6 +1,10 @@
-% layout 'head', title => 'Registration';
-<form method="post" action="/reg">
+% layout 'user-form', title => 'Registration';
+<form method="post" action="/reg" id="reg-form">
   <input type="text" name="username" placeholder="<%=${$DICT}{'name'}%>" required pattern="[A-Za-z]+">
   <input type="password" name="password" placeholder="<%=${$DICT}{'pwd'}%>">
   <button><%=${$DICT}{'create_acc'}%></button>
 </form>
+
+<div id="user-error" style="display: none;">
+  %= include 'errors/user_exist';
+</div>

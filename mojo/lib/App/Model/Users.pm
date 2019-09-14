@@ -34,7 +34,7 @@ sub select {
   $db->fetchrow_arrayref();
 }
 
-sub exist {
+sub fetch {
   my $self = shift;
   my ($looking_name, $looking_pwd) = @_;
   carp "Checking for col: $looking_name AND pwd: $looking_pwd...";

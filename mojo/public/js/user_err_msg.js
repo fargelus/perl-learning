@@ -1,5 +1,5 @@
 $(() => {
-  $('#login-form').submit((ev) => {
+  $('#login-form, #reg-form').submit((ev) => {
     ev.preventDefault();
 
     const $form = $(ev.target);
@@ -11,7 +11,16 @@ $(() => {
       password: pwd,
     };
 
-    const $loginError = $('#login-error');
+    const $userError = $('#user-error');
+    const hasError = (status) => {
+      const isLoginForm = $form.attr('id') === 'login-form';
+      const isRegForm = $form.attr('id') === 'reg-form';
+
+      const isLoginError = (status === 'empty' && isLoginForm);
+      const isRegError = (status === 'exist' && isRegForm);
+
+      return isLoginError || isRegError;
+    }
 
     $.ajax({
       type: "POST",
@@ -22,8 +31,10 @@ $(() => {
     }).always((data) => {
       let response = data.responseText;
       response = JSON.parse(response);
-      if (response.status === 'fail') {
-        $loginError.show();
+      const { status } = response;
+
+      if (hasError(status)) {
+        $userError.show();
       } else {
         $form.off('submit');
         $form.submit();
