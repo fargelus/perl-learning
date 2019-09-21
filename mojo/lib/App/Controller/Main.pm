@@ -2,9 +2,7 @@ package App::Controller::Main;
 
 
 use Mojo::Base 'Mojolicious::Controller';
-use Data::Dumper;
 use App::Model::Users;
-use Carp qw(carp croak);
 use App::Helpers;
 use Package::Alias
     RU_LEXER => 'App::Locale::Ru',

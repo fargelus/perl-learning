@@ -1,13 +1,12 @@
 package App::Helpers;
 
+
 use strict;
 use warnings;
 
 use App::Locale::Ru;
 use App::Locale::En;
 use Exporter qw(import);
-use Carp qw(carp croak);
-use Data::Dumper;
 
 
 our @EXPORT = qw(stashLexer getTranslatedPageURL);
@@ -40,5 +39,6 @@ sub getTranslatedPageURL {
 
   $originPage;
 }
+
 
 1;

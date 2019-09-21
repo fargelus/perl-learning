@@ -41,6 +41,7 @@ sub defineRoutes {
   $r->post('/translate')->to('main#translate');
   $r->post('/login')->to('user#postLogin');
   $r->get('/logout')->to('user#logout');
+  $r->post('/user_exist')->to('user#isUserExist');
 }
 
 1;

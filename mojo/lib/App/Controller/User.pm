@@ -1,12 +1,12 @@
 package App::Controller::User;
 
+
 use Mojo::Base 'Mojolicious::Controller';
 use Mojo::JSON qw(decode_json encode_json);
+use Mojo::Path;
 use App::Helpers;
 use App::Model::Users;
 use Cwd;
-use Data::Dumper;
-use Carp qw(carp croak);
 
 
 sub getLogin {
@@ -18,6 +18,7 @@ sub getLogin {
 
 sub postLogin {
   my $self = shift;
+
   my ($username, $pwd) = (
     $self->param('username'),
     $self->param('password')
@@ -25,7 +26,17 @@ sub postLogin {
 
   my $fetch_rec = App::Model::Users->fetch($username, $pwd);
   $self->session(id => @$fetch_rec[0]);
-  $self->redirect_to('greetings');
+
+  goToGreetingsFromAction($self);
+}
+
+sub goToGreetingsFromAction {
+  my $self = shift;
+
+  my $referrer = $self->req->content->headers->referrer;
+  my $path = Mojo::Path->new($referrer)->to_dir->to_string;
+
+  $self->redirect_to($path . 'greetings');
 }
 
 sub isUserExist {
@@ -70,7 +81,7 @@ sub register {
   my $inserted_id = App::Model::Users->insert($username, $pwd, '');
   if ($inserted_id) {
     $self->session(id => $inserted_id);
-    $self->redirect_to('greetings');
+    goToGreetingsFromAction($self);
   }
 }
 
