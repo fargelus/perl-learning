@@ -5,7 +5,7 @@ print "Enter a temperature (e.g., 32F, 100C):\n";
 my $input = <STDIN>;
 chomp($input);
 
-if ($input =~ /^([-+]?[0-9]+)([CF])$/) {
+if ($input =~ /^([-+]?[0-9]+(?:\.[0-9]+)?)\s*([CF])$/i) {
   my $input_num = $1;
   my $type = $2;
   my ($farenheit, $celsius);
