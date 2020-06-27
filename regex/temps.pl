@@ -10,7 +10,7 @@ if ($input =~ /^([-+]?[0-9]+(?:\.[0-9]+)?)\s*([CF])$/i) {
   my $type = $2;
   my ($farenheit, $celsius);
 
-  if ($type eq 'C') {
+  if ($type =~ /c/i) {
     $celsius = $input_num;
     $farenheit = ($celsius * 9 / 5) + 32;
   } else {
