@@ -9,12 +9,14 @@ $text =~ s/</&lt;/g;
 $text =~ s/>/&gt;/g;
 $text =~ s/^s+$/<p>/g;
 
+my $hostname_regex = qr/[-a-z0-9]+(\.[-a-z0-9]+)*\.(com|edu|info)/i;
+
 $text =~ s{
   \b
   (
     \w[-.\w]*
     \@
-    [-a-z0-9]+(\.[-a-z0-9]+)*\.(com|edu|info)
+    $hostname_regex
   )
   \b
 }{<a href="mailto:$1">$1</a>}gix;
@@ -22,7 +24,7 @@ $text =~ s{
 $text =~ s{
   \b
   (
-    https?://[-a-z0-9]+(\.[-a-z0-9]+)*\.(com|edu|info)( \b)?
+    https?://$hostname_regex( \b)?
     (
       / [-a-z0-9R:\@&?=+,.!/~+'%\$]*
       (?<![.,?!])
