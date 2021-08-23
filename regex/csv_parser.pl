@@ -5,7 +5,7 @@ while ($line =~ m/([^",]+)|"((?:[^"]|"")*)"/g) {
   if (defined $1) {
     $field = $1;
   } else {
-    $field = $2;
+    $field = $2 || $3;
     $field =~ s/""/"/g;
   }
   print "[$field]";
